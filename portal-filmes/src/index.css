@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{
+    overflow-x: hidden;
+}
+
+body{
+    background-color: #2e2b24;
+}
+
+.active{
+    border-bottom: 2px solid white;
+}
+
+@font-face {
+    font-family: Bebas;
+    src: url("./assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf");
+}
+
+@font-face {
+    font-family: Raleway;
+    src: url("./assets/fonts/Raleway/Raleway-VariableFont_wght.ttf");
+}

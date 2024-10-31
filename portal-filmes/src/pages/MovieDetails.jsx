@@ -10,6 +10,7 @@ export default function MovieDetails(){
     const {id} = useParams();
     const [movie, setMovie] = useState({});
     const [cast, setCast] = useState([]);
+    const [width, setWidth] = useState(null);
     const [trailer, setTrailer] = useState(null);
 
 
@@ -56,12 +57,18 @@ export default function MovieDetails(){
     const upScroll = () => {
         carouselRef.current.scrollBy({top: -200, behavior: 'smooth'})
     }
-    
+
+    useEffect(() => {
+        const widthViewPort = window.innerWidth;
+        setWidth(widthViewPort);
+        console.log(width)
+    }, [width])
+
     return (
         <> 
         {
             movie ?
-                <div key={movie.id} className='h-[800px] bg-cover bg-center text-white relative' style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
+                <div key={movie.id} className={`${width > 1500? "h-[910px]" : "h-[800px]"} bg-cover bg-center text-white relative`} style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
                     <div className="bg-black bg-opacity-70 w-full h-full absolute top-0 left-0 flex">
                         <div className="w-[60%] p-20 h-full font-[Raleway] flex flex-col gap-y-8">
                             <div className="w-full flex">
@@ -94,7 +101,7 @@ export default function MovieDetails(){
                                 </div>
                                 <div className="w-[20%] flex justify-center">
                                     <div className="w-[90%] h-full relative">
-                                        <button onClick={upScroll} className=" text-black flex items-center w-6 absolute left-[37%] -top-4 rounded-full bg-white text-4xl z-10" >
+                                        <button onClick={upScroll} className=" text-black flex items-center w-6 absolute left-[43%] -top-4 rounded-full bg-white text-4xl z-10" >
                                             <IoIosArrowUp />
                                         </button>
 
@@ -112,7 +119,7 @@ export default function MovieDetails(){
                                             }
                                         </div>
                                         
-                                        <button onClick={downScroll} className=" text-black flex items-center w-6 absolute left-[37%] -bottom-4 rounded-full bg-white text-4xl z-10" >
+                                        <button onClick={downScroll} className=" text-black flex items-center w-6 absolute left-[43%] -bottom-4 rounded-full bg-white text-4xl z-10" >
                                             <IoIosArrowDown />
                                         </button>
                                     </div>

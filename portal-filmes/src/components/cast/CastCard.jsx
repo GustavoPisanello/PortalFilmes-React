@@ -8,7 +8,8 @@ export default function CastCard({ name, role, character, profile_path }) {
             </div>
             <div className="text-center">
                 <h3 className="text-sm">{name}</h3>
-                {role === "Acting" && <p className="text-xs text-primary_color">{character}</p>}
+                {role === "Acting" ? (<p className="text-xs text-primary_color">{character}</p>) :
+                    (<p className="text-xs text-primary_color">{role}</p>) }
             </div>
         </div>
     );

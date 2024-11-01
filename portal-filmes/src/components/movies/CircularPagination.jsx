@@ -1,57 +1,59 @@
-import {Button, IconButton} from "@material-tailwind/react"
-import { HiArrowSmRight } from "react-icons/hi";
-import { HiArrowSmLeft } from "react-icons/hi";
+import { Button } from "@material-tailwind/react";
+import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-
-export default function CircularPagination({totalPages, currentPage, onPageChange}){
-    const displayedPages = totalPages > 10 ? 10 : totalPages;
+export default function CircularPagination({ totalPages, currentPage, onPageChange }) {
+    const displayedPages = 10; // Número de páginas exibidas por vez
+    const startPage = Math.max(1, currentPage - Math.floor(displayedPages / 2));
+    const endPage = Math.min(totalPages, startPage + displayedPages - 1);
 
     const getItemProps = (index) => ({
         variant: currentPage === index ? "filled" : "text",
         color: "white",
         onClick: () => onPageChange(index),
-        className: "rounded-full",
+        className: `rounded-full button-no-overflow ${currentPage === index ? "bg-primary text-white" : "bg-transparent text-gray-500"}`,
     });
 
-    const nextPage = () => {
-        if (currentPage === 10) return;
-        onPageChange(currentPage + 1)
-    }
+    const next = () => {
+        if (currentPage < totalPages) {
+        onPageChange(currentPage + 1);
+        }
+    };
 
-    const prevPage = () => {
-        if (currentPage === 1) return;
-        onPageChange(currentPage - 1)
-    }
+    const prev = () => {
+        if (currentPage > 1) {
+        onPageChange(currentPage - 1);
+        }
+    };
 
-    return(
-        <>
-        <div className="flex items-center gap-4 mt-6">
-            <Button
-                variant="text"
-                className="flex items-center gap-2 rounded-full text-white"
-                onClick={prevPage}
-                disabled={currentPage === 1}
-            >
-            <HiArrowSmLeft className="h-4 w-4"/> Previous
-            </Button>
-            <div className="flex items-center gap-12 w-fit">
-                {
-                    [...Array(displayedPages)].map((_, index) => (
-                        <IconButton {...getItemProps(index + 1)} key={index + 1}>
-                            {index + 1}
-                        </IconButton>
-                    ))
-                }
-            </div>
-            <Button
-                variant="text"
-                className="flex items-center gap-2 rounded-full text-white"
-                onClick={nextPage}
-                disabled={currentPage === 10}
-            > Next
-            <HiArrowSmRight className="h-4 w-4"/> 
-            </Button>
+    return (
+        <div className="flex items-center gap-4 mt-20">
+        <Button
+            variant="text"
+            className="flex items-center gap-2 rounded-full text-white"
+            onClick={prev}
+            disabled={currentPage === 1}
+        >
+            <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+        </Button>
+        <div className="flex items-center gap-2">
+            {[...Array(endPage - startPage + 1)].map((_, index) => {
+            const page = startPage + index;
+            return (
+                <Button {...getItemProps(page)} key={page}>
+                {page}
+                </Button>
+            );
+            })}
         </div>
-        </>
+        <Button
+            variant="text"
+            className="flex items-center gap-2 rounded-full text-white"
+            onClick={next}
+            disabled={currentPage === totalPages}
+        >
+            Next
+            <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+        </Button>
+        </div>
     );
 }

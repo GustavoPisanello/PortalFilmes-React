@@ -9,8 +9,10 @@ import Home from './pages/Home.jsx'
 import MovieDetails from './pages/MovieDetails.jsx'
 import Genres from './pages/Genres.jsx'
 import MovieByGenre from './pages/MovieByGenre.jsx'
-import Favorites from './pages/Favorites.jsx'
+import MyList from './pages/MyList.jsx'
 import Movies from './pages/Movies.jsx'
+import { WatchLaterProvider } from './context/WatchLaterContext.jsx'
+import { WatchedProvider } from './context/WatchedContext.jsx'
 
 
 const router = createBrowserRouter([
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
       {path: "/movies/:id", element: <MovieDetails/>},
       {path: "/genres", element: <Genres/>},
       {path: "/genres/:genero", element: <MovieByGenre/>},
-      {path: "/favorites", element: <Favorites/>},
+      {path: "/MyList", element: <MyList/>},
       {path: "/movies", element: <Movies/> }
     ]
   }
@@ -30,7 +32,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FavoritesProvider>
-      <RouterProvider router={router}/>
+      <WatchLaterProvider>
+        <WatchedProvider>
+          <RouterProvider router={router}/>
+        </WatchedProvider>
+      </WatchLaterProvider>
     </FavoritesProvider>
   </StrictMode>,
 )

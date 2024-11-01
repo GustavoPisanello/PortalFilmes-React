@@ -23,7 +23,7 @@ export default function Header(){
                         <li><NavLink to="/">Home</NavLink></li>
                         <li><NavLink to="/Movies">Filmes</NavLink></li>
                         <li><NavLink to="/Genres">Gêneros</NavLink></li>
-                        <li><NavLink to="/Favorites">Favoritos</NavLink></li>
+                        <li><NavLink to="/MyList">Minhas Listas</NavLink></li>
                         {isLogged && <li><NavLink to="">Configurações</NavLink></li>}
                     </ul>
                 </nav>

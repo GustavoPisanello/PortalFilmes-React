@@ -1,9 +1,12 @@
 import {useParams} from 'react-router-dom'
-import {useEffect, useState, useRef} from 'react'
+import {useEffect, useState, useRef, useContext} from 'react'
 import { CiStar } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import CastCard from '../components/cast/CastCard';
+import { WatchLaterContext } from '../context/WatchLaterContext';
+import { WatchedContext } from '../context/WatchedContext';
+import { CiBookmarkPlus } from "react-icons/ci";
 
 export default function MovieDetails(){
 
@@ -12,6 +15,8 @@ export default function MovieDetails(){
     const [cast, setCast] = useState([]);
     const [width, setWidth] = useState(null);
     const [trailer, setTrailer] = useState(null);
+    const {handleWatchLater, isWatchLater} = useContext(WatchLaterContext);
+    const {handleWatched, isWatched} = useContext(WatchedContext);
 
 
     useEffect(() => {
@@ -83,13 +88,15 @@ export default function MovieDetails(){
                                     </div>
                                 </div>
                             </div>
-                            <div className='text-justify'>{movie.overview}</div>
+                            <div className='text-justify '>
+                                 <p className='max-h-[100px] overflow-y-auto'>{movie.overview ? movie.overview : "Sinopse não disponível ;("}</p>
+                            </div>
                             <div className='flex justify-between'>
                                 <div className="w-[75%]">
                                 {trailer ? (
                                     <iframe
-                                    width="100%"
-                                    height="315"
+                                    width={`100%`}
+                                    height={`${width > 1500 ? "450px" : "315px"}`}
                                     src={trailer.replace('watch?v=', 'embed/')}
                                     title={`${movie.title} Trailer`}
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -105,7 +112,7 @@ export default function MovieDetails(){
                                             <IoIosArrowUp />
                                         </button>
 
-                                        <div ref={carouselRef} className="flex flex-col gap-y-8 overflow-hidden max-h-[315px]">
+                                        <div ref={carouselRef} className={`flex flex-col gap-y-8 overflow-hidden ${width > 1500 ? "max-h-[450px]" : "max-h-[315px]"}`}>
                                             {
                                                 cast.map((data, index) => (
                                                     <CastCard
@@ -124,6 +131,10 @@ export default function MovieDetails(){
                                         </button>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="flex justify-between items-center w-full mt-3">
+                                <button className="flex gap-4 p-4 bg-primary_color rounded hover:bg-white hover:text-primary_color transition duration-300 group" onClick={() => handleWatched(movie)}>{isWatched(movie) ?"Remover dos filmes assistidos"  : "Adicionar aos filmes assistidos"}<CiBookmarkPlus className='text-2xl text-white group-hover:text-primary_color'></CiBookmarkPlus></button>
+                                <button className="text-primary_color h-fit p-1 hover:border-b hover:border-primary_color transition duration-300" onClick ={() => handleWatchLater(movie)}>{isWatchLater(movie) ? "Remover" : "Assistir mais tarde"}</button>
                             </div>
                         </div>
                         <div className="w-[40%] h-full">

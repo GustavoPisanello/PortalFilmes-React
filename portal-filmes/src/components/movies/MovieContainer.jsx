@@ -13,6 +13,7 @@ export default function MovieContainer({titulo, children}){
     const rightScroll = () => {
         carouselRef.current.scrollBy({left: 400, behavior: 'smooth'})
     }
+
     return (
         <>
             <div className="w-full relative">

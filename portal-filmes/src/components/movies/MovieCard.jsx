@@ -2,9 +2,11 @@ import { useContext } from 'react';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { FavoritesContext } from '../../context/FavoritesContext';
+import { WatchLaterContext } from '../../context/WatchLaterContext';
 
 export default function MovieCard({ id, title, poster_path }) {
     const { handleFavorite, isFavorite } = useContext(FavoritesContext);
+    const {handleWatchLater, isWatchLater} = useContext(WatchLaterContext);
 
     return (
         <div key={id} className="flex flex-col text-center justify-center items-center gap-y-4 flex-shrink-0 relative">

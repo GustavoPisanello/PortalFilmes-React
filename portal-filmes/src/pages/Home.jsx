@@ -54,7 +54,7 @@ export default function Home(){
         <>
         {isLoading ? <p>Carregando...</p> :
         <>
-            <div className="flex flex-col gap-y-20 p-16">
+            <div className="flex flex-col p-16 gap-y-32">
                 <MovieContainer titulo={"Filmes populares"}>
                     {
                         popularMovies.map((movie) =>(

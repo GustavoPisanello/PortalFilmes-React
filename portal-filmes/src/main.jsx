@@ -13,6 +13,7 @@ import MyList from './pages/MyList.jsx'
 import Movies from './pages/Movies.jsx'
 import { WatchLaterProvider } from './context/WatchLaterContext.jsx'
 import { WatchedProvider } from './context/WatchedContext.jsx'
+import PageNotFound from './pages/PageNotFound.jsx'
 
 
 const router = createBrowserRouter([
@@ -25,8 +26,12 @@ const router = createBrowserRouter([
       {path: "/genres", element: <Genres/>},
       {path: "/genres/:genero", element: <MovieByGenre/>},
       {path: "/MyList", element: <MyList/>},
-      {path: "/movies", element: <Movies/> }
+      {path: "/movies", element: <Movies/> },
     ]
+  },
+  {
+    path: "*",
+    element: <PageNotFound/>
   }
 ])
 createRoot(document.getElementById('root')).render(
